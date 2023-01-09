@@ -1,0 +1,100 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { debounceTime, Subscription } from 'rxjs';
+import { ReportGuard } from 'src/app/guards/report.guard';
+import { Tee } from '../../interfaces/tee.interface';
+import { ElementsService } from '../../services/elements.service';
+
+@Component({
+  selector: 'app-tee',
+  templateUrl: './tee.component.html',
+  styleUrls: ['../../styles/form.scss']
+})
+export class TeeComponent implements OnInit, OnDestroy {
+  public form: FormGroup = this._fb.group({
+    tee: this._fb.array([])
+  });
+
+  public formArray: FormArray = this.form.controls["tee"] as FormArray;
+
+  public quantityElementsForAdd: number | string = "";
+
+  private _dataInLS!: Tee[];
+
+  private _subscription?: Subscription;
+
+  constructor(
+    private readonly _fb: FormBuilder,
+    private readonly _el: ElementsService,
+    private readonly _guard: ReportGuard
+    ){};
+
+  ngOnInit(): void {
+    this._dataInLS = this._el.tees;
+
+    if(this._dataInLS){
+      for (let i = 0; i < this._dataInLS.length; i++){
+        this.formArray.push(
+          this._fb.group({
+            numberPipeline: [this._dataInLS[i].numberPipeline, Validators.required],
+            numberDistrict: [this._dataInLS[i].numberDistrict, Validators.required],
+            nominalDiametr: [this._dataInLS[i].nominalDiametr, Validators.required],
+            length: [this._dataInLS[i].length, Validators.required],
+            diametrBranch: [this._dataInLS[i].diametrBranch, Validators.required],
+            lengthBranch: [this._dataInLS[i].lengthBranch, Validators.required],
+            quantity: [this._dataInLS[i].quantity, Validators.required],
+          })
+        );
+      };
+    };
+
+    this._validates();
+  };
+
+  private _validates(): void{
+    this._guard.isValidTee = this.form.valid;
+    this._subscription = this.form.valueChanges.
+    pipe(debounceTime(200)).
+    subscribe(()=>{
+      this._guard.isValidTee = this.form.valid;
+    });
+  };
+
+  public addNewElements(): void{
+    for (let i = 0; i < this.quantityElementsForAdd; i++){
+      this.formArray.push(
+        this._fb.group({
+          numberPipeline: ["", Validators.required],
+          numberDistrict: ["", Validators.required],
+          nominalDiametr: ["", Validators.required],
+          length: ["", Validators.required],
+          diametrBranch: ["", Validators.required],
+          lengthBranch: ["", Validators.required],
+          quantity: ["", Validators.required],
+        })
+       );
+    };
+    this.quantityElementsForAdd = "";
+  };
+
+  public deleteElement(i: number): void{
+    this.formArray.removeAt(i);
+  };
+
+  public addNewElement(i: number): void{
+    this.formArray.insert( i + 1, this._fb.group({
+        numberPipeline: [this.formArray.value[i].numberPipeline, Validators.required],
+        numberDistrict: [this.formArray.value[i].numberDistrict, Validators.required],
+        nominalDiametr: ["", Validators.required],
+        length: ["", Validators.required],
+        diametrBranch: ["", Validators.required],
+        lengthBranch: ["", Validators.required],
+        quantity: ["", Validators.required],
+      })
+    );
+  };
+
+  ngOnDestroy(): void {
+    this._subscription?.unsubscribe();
+  };
+};

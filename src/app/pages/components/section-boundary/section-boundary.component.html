@@ -1,0 +1,38 @@
+<div class="wrapper">
+  <header>
+    <form action="#">
+      <div class="form">
+        <label for="add">Добавить элементы</label>
+        <input name="add" type="number" [(ngModel)]="quantityElementsForAdd">
+        <button type="button" (click)="addNewElements()">Добавить</button>
+      </div>
+    </form>
+  </header>
+  <main>
+    <form [formGroup]="form" autoSaveInLS [form]="form" [key]="'sectionBoundary'">
+      <div class="form__input" movingBetweenInput>
+          <ul formArrayName="sectionBoundary">
+            <li *ngFor="let sectionBoundary of formArray.controls; let i = index">
+              <div [formGroupName]="i" class="center">
+                <div>
+                  <label for="numberPipeline">Номер трубопровода</label>
+                  <input type="number" name="numberPipeline" formControlName="numberPipeline">
+                </div>
+                <div>
+                  <label for="numberDistrict">Номер участка</label>
+                  <input type="number" name="numberDistrict" formControlName="numberDistrict">
+                </div>
+                <div>
+                  <label for="name">Название</label>
+                  <textarea name="name" cols="40" rows="3" placeholder="Введите границы участков" formControlName="name"></textarea>
+                </div>
+                <div>
+                  <button class="btn-delete" (click)="deleteElement(i)"></button>
+                  <button class="btn-add" (click)="addNewElement(i)"></button>
+                </div>
+              </div>
+          </ul>
+      </div>
+    </form>
+  </main>
+</div>

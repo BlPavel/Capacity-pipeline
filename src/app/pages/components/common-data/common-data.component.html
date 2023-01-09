@@ -1,0 +1,111 @@
+<div class="conteiner">
+  <div class="button">
+    <form method="post" enctype="multipart/form-data">
+      <label class="input-file">
+           <input type="file" name="file" (change)="unload($event.target)">
+            <span class="input-file-btn">Загрузить данные</span>
+       </label>
+    </form>
+    <button (click)="clear()">Очистить формы</button>
+  </div>
+
+  <form [formGroup]="form" autoSaveInLS [form]="form" [key]="'commonData'">
+    <div>
+      <label for="name">Название трубопровода</label>
+      <textarea name="name" cols="40" rows="5" placeholder="Введите название трубопровода" formControlName="name"></textarea>
+    </div>
+    <div>
+      <label for="date">Дата проведения работ</label>
+      <input type="date" name="date" formControlName="date">
+    </div>
+    <div>
+      <label for="place">Место проведение работ</label>
+      <textarea name="place" cols="40" rows="2" placeholder="Введите место проведения работ" formControlName="place"></textarea>
+    </div>
+    <div>
+      <label for="interval">Межкалибровочный интервал</label>
+      <input type="number" name="interval" formControlName="interval" class="small">
+    </div>
+    <div>
+      <label for="temperature">Температура окружающего воздуха</label>
+      <input type="number" name="temperature" formControlName="temperature" class="small">
+    </div>
+    <div>
+      <label for="positionHead">Должность руководителя</label>
+      <textarea name="positionHead" cols="40" rows="2" placeholder="Введите должность" formControlName="positionHead"></textarea>
+    </div>
+    <div>
+      <label for="nameHead">ФИО руководителя</label>
+      <input type="text" name="nameHead" formControlName="nameHead">
+    </div>
+    <div>
+      <label for="positionChairman">Председатель комиссии (должность)</label>
+      <textarea name="positionChairman" cols="40" rows="2" placeholder="Введите должность" formControlName="positionChairman"></textarea>
+    </div>
+    <div>
+      <label for="nameChairman">Председатель комиссии (ФИО)</label>
+      <input type="text" name="nameChairman" formControlName="nameChairman">
+    </div>
+    <div>
+      <label for="nameMember1">Член комиссии (ФИО)</label>
+      <input type="text" name="nameMember1" formControlName="nameMember1">
+    </div>
+    <div>
+      <label for="nameMember2">Член комиссии (ФИО)</label>
+      <input type="text" name="nameMember2" formControlName="nameMember2">
+    </div>
+    <div>
+      <label for="nameMember3">Член комиссии (ФИО)</label>
+      <input type="text" name="nameMember3" formControlName="nameMember3">
+    </div>
+
+    <div>
+      <h3>Название отдельных трубопроводов:</h3>
+    </div>
+    <ul formArrayName="pipeLine">
+      <li *ngFor="let pipeLine of formArrayPipeLines.controls; let i = index">
+        <div [formGroupName]="i" class="center">
+          <div>
+            <label for="numberPipeline">Номер трубопровода</label>
+            <input type="number" name="numberPipeline" formControlName="numberPipeLine" class="small">
+          </div>
+          <div>
+            <label for="namePipeLine">Название</label>
+            <textarea name="namePipeLine" cols="30" rows="3" placeholder="Введите название отдельного трубопровода" formControlName="namePipeLine"></textarea>
+          </div>
+          <div>
+            <label for="nameBorder">Границы</label>
+            <textarea name="nameBorder" cols="30" rows="3" placeholder="Введите границы трубопровода" formControlName="nameBorder"></textarea>
+          </div>
+          <div>
+            <button class="btn-delete" (click)="deleteElementPipeLine(i)"></button>
+            <button class="btn-add" (click)="addNewElementPipeLine(i)"></button>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div>
+      <h3>Используемые средства измерений:</h3>
+    </div>
+    <ul formArrayName="instruments">
+      <li *ngFor="let instrument of formArrayInstruments.controls; let i = index">
+        <div [formGroupName]="i" class="center">
+          <div>
+            <label for="name">Название, тип СИ</label>
+            <textarea name="name" cols="40" rows="2" placeholder="Введите название тип СИ" formControlName="name"></textarea>
+          </div>
+          <div>
+            <label for="certificate">Свидетельство о поверке</label>
+            <textarea name="certificate" cols="40" rows="2" placeholder="Введите № дату свидетельства о поверке" formControlName="certificate"></textarea>
+          </div>
+          <div>
+            <button class="btn-delete" (click)="deleteElementInstrument(i)"></button>
+            <button class="btn-add" (click)="addNewElementInstrument(i)"></button>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+  </form>
+</div>

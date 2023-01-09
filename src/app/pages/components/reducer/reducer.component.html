@@ -1,0 +1,41 @@
+<div class="wrapper">
+  <header>
+    <form action="#">
+      <div class="form">
+        <label for="add">Добавить элементы</label>
+        <input name="add" type="number" [(ngModel)]="quantityElementsForAdd">
+        <button type="button" (click)="addNewElements()">Добавить</button>
+      </div>
+    </form>
+  </header>
+  <main>
+    <form [formGroup]="form" autoSaveInLS [form]="form" [key]="'reducer'">
+      <div class="form__input" movingBetweenInput>
+          <ul formArrayName="reducer">
+            <li *ngFor="let reducer of formArray.controls; let i = index">
+              <div [formGroupName]="i">
+                <label for="numberPipeline">Номер трубопровода</label>
+                <input type="number" name="numberPipeline" formControlName="numberPipeline">
+                <label for="numberDistrict">Номер участка</label>
+                <input type="number" name="numberDistrict" formControlName="numberDistrict">
+                <label for="type">Тип</label>
+                <select name="type" formControlName="type">
+                  <option value="Концентрический">Концентрический</option>
+                  <option value="Эксцентрический">Эксцентрический</option>
+                </select>
+                <label for="nominalDiametr">Диаметр(Dy)</label>
+                <input type="number" name="nominalDiametr" formControlName="nominalDiametr">
+                <label for="diametrAfterReducer">Диаметр(dx)</label>
+                <input type="number" name="diametrAfterReducer" formControlName="diametrAfterReducer">
+                <label for="length">Длина</label>
+                <input type="number" name="length" formControlName="length">
+                <label for="quantity">Количество</label>
+                <input type="number" name="quantity" formControlName="quantity">
+                <button class="btn-delete" (click)="deleteElement(i)"></button>
+                <button class="btn-add" (click)="addNewElement(i)"></button>
+              </div>
+          </ul>
+      </div>
+    </form>
+  </main>
+</div>

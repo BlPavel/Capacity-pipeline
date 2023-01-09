@@ -1,0 +1,43 @@
+<div class="wrapper">
+  <header>
+    <form action="#">
+      <div class="form">
+        <label for="add">Добавить элементы</label>
+        <input name="add" type="number" [(ngModel)]="quantityElementsForAdd">
+        <button type="button" (click)="addNewElements()">Добавить</button>
+      </div>
+    </form>
+  </header>
+  <main>
+    <form [formGroup]="form" autoSaveInLS [form]="form" [key]="'offset'">
+      <div class="form__input" movingBetweenInput>
+          <ul formArrayName="offset">
+            <li *ngFor="let offset of formArray.controls; let i = index">
+              <div [formGroupName]="i">
+                <label for="numberPipeline">Номер трубопровода</label>
+                <input type="number" name="numberPipeline" formControlName="numberPipeline">
+                <label for="numberDistrict">Номер участка</label>
+                <input type="number" name="numberDistrict" formControlName="numberDistrict">
+                <label for="nominalDiametr">Номинальный диаметр</label>
+                <input type="number" name="nominalDiametr" formControlName="nominalDiametr">
+                <label for="type">Тип</label>
+                <select name="type" formControlName="type">
+                  <option value="Отвод 90 градусов">Отвод 90гр.</option>
+                  <option value="Отвод 60 градусов">Отвод 60гр.</option>
+                  <option value="Отвод 45 градусов">Отвод 45гр.</option>
+                  <option value="Отвод 30 градусов">Отвод 30гр.</option>
+                </select>
+                <label for="length1">Длина(l1)</label>
+                <input type="number" name="length1" formControlName="length1">
+                <label for="length2">Длина(l2)</label>
+                <input type="number" name="length2" formControlName="length2">
+                <label for="quantity">Количество</label>
+                <input type="number" name="quantity" formControlName="quantity">
+                <button class="btn-delete" (click)="deleteElement(i)"></button>
+                <button class="btn-add" (click)="addNewElement(i)"></button>
+              </div>
+          </ul>
+      </div>
+    </form>
+  </main>
+</div>

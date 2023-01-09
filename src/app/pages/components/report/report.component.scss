@@ -1,0 +1,57 @@
+.conteiner{
+  max-width: 800px;
+  h4{
+    text-decoration: underline;
+    font-size: 15px;
+  }
+  table{
+    font-size: 14px;
+    width: 800px;
+    margin-bottom: 30px;
+    border-spacing: 10px;
+    caption{
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    tr{
+      margin-top: 50px;
+    }
+    th{
+      font-size: 12px;
+    }
+    td{
+      text-align: center;
+    }
+  }
+
+  h3{
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+.button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 10px;
+  button{
+    padding: 12px 26px;
+    font-size: 14px;
+    opacity: 1;
+    border-radius: 5px;
+    &:hover{
+      opacity: .8;
+    }
+    &:nth-child(2){
+      color: white;
+      background-color: rgb(45, 45, 123);
+      padding: 12px 42px;
+    }
+    &:nth-child(1){
+      color: white;
+      background-color: green;
+    }
+  }
+}

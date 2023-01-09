@@ -1,0 +1,58 @@
+<div class="conteiner">
+  <div class="button">
+    <button (click)="save()">Сохранить</button>
+    <button (click)="saveWord()"><i>Word</i></button>
+  </div>
+
+  <ng-container *ngFor="let name of namePipeLines let i = index">
+    <h4><i>{{ name }}</i></h4>
+    <table>
+      <caption>Таблица вместимости участков технологического трубопрвода</caption>
+      <thead>
+        <tr>
+          <th>Номер участка</th>
+          <th>Границы участка по градуировочным точкам</th>
+          <th>Длина участка, м</th>
+          <th>Вместимость участка, м<sup>3</sup></th>
+          <th>Длина с нарастающим итогом, м</th>
+          <th>Вместимость с нарастающим итогом, м<sup>3</sup></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of graduationDistrict[i]">
+          <td>{{ item.numberDistrict }}</td>
+          <td>{{ item.nameDistrict }}</td>
+          <td>{{ item.length }}</td>
+          <td>{{ item.capacity }}</td>
+          <td>{{ item.lengthCumulative }}</td>
+          <td>{{ item.capacityCumulative }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+
+  <h3><b>Градуировочная таблица на трубопровод: </b> <i>{{ namePipe }}</i></h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Номер участка</th>
+        <th>Границы по градуировочным точкам</th>
+        <th>Длина участка, м</th>
+        <th>Вместимость участка, м<sup>3</sup></th>
+        <th>Длина с нарастающим итогом, м</th>
+        <th>Вместимость с нарастающим итогом, м<sup>3</sup></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of graduationPipeLine">
+        <td>{{ item.numberPipeLine }}</td>
+        <td>{{ item.nameBorder }}</td>
+        <td>{{ item.length }}</td>
+        <td>{{ item.capacity }}</td>
+        <td>{{ item.lengthCumulative }}</td>
+        <td>{{ item.capacityCumulative }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

@@ -1,0 +1,106 @@
+.wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.form{
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  input{
+    width: 80px;
+    font-size: 16px;
+  }
+  button{
+    color: blue;
+    background-color: white;
+    font-size: 16px;
+    padding: 6px;
+    border-radius: 10%;
+    transition: .3s ease-in-out;
+    &:hover{
+      cursor: pointer;
+      opacity: .7
+    }
+  }
+  &__input{
+    ul{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    li{
+      margin-bottom: 12px;
+    }
+    input{
+      width: 50px;
+      font-size: 14px;
+      padding-left: 1px;
+      margin: 0 5px;
+    }
+    select{
+      margin: 0 15px 0 8px;
+    }
+    button{
+      padding: 0px;
+      font-size: 30px;
+      font-weight: 700;
+      background: none;
+      &:hover{
+        opacity: .7;
+      }
+    }
+    .btn-delete{
+      position: relative;
+      margin-right: 35px;
+      &::before{
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 10px;
+        width: 3px;
+        height: 16px;
+        background-color: red;
+        transform: rotate(45deg);
+      }
+      &::after{
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 10px;
+        width: 3px;
+        height: 16px;
+        background-color: red;
+        transform: rotate(-45deg);
+      }
+    }
+    .btn-add{
+      position: relative;
+      &::before{
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 10px;
+        width: 4px;
+        height: 16px;
+        transform: rotate(90deg);
+        background-color: blue;
+      }
+      &::after{
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 10px;
+        width: 4px;
+        height: 16px;
+        transform: rotate(180deg);
+        background-color: blue;
+      }
+    }
+  }
+}
